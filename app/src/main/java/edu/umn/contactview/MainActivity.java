@@ -33,7 +33,7 @@ public class MainActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Contact contact = (Contact)getListAdapter().getItem(position);
         //makeText only makes the text, need to add show() to actually display the text
-        Toast.makeText(this, "Clicked " + contact.getName() + " (" + id + ") ", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Clicked " + contact.getName(), Toast.LENGTH_LONG).show();
     }
 
     @Override

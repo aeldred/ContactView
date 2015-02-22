@@ -2,6 +2,7 @@ package edu.umn.contactview;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -33,7 +34,13 @@ public class MainActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Contact contact = (Contact)getListAdapter().getItem(position);
         //makeText only makes the text, need to add show() to actually display the text
-        Toast.makeText(this, "Clicked " + contact.getName(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Clicked " + contact.getName(), Toast.LENGTH_LONG).show();
+
+        // Create a new intent that points to the Details activity
+        // then start the new activity
+        Intent intent = new Intent(this, DetailsActivity.class);
+        intent.putExtra("name", contact.getName());
+        startActivity(intent);
     }
 
     @Override
@@ -96,6 +103,28 @@ public class MainActivity extends ListActivity {
 
             return view;
         }
+    }
+
+    // The next two are called when we switch back into this activity
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    // The next two are called when we switch away from this activity
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
 }

@@ -1,7 +1,6 @@
 package edu.umn.contactview;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,21 +8,22 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 
-public class DetailsActivity extends Activity {
+public class EditActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        setContentView(R.layout.activity_edit);
 
         String name = getIntent().getExtras().getString("name");
-        ((TextView)findViewById(R.id.detailsName)).setText(name);
+        ((TextView)findViewById(R.id.editName)).setText(name);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_details, menu);
+        getMenuInflater().inflate(R.menu.menu_edit, menu);
         return true;
     }
 
@@ -36,11 +36,6 @@ public class DetailsActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            // Create a new intent that points to the Details activity
-            // then start the new activity
-            Intent intent = new Intent(this, EditActivity.class);
-            intent.putExtra("name", ((TextView)findViewById(R.id.detailsName)).getText());
-            startActivity(intent);
             return true;
         }
 

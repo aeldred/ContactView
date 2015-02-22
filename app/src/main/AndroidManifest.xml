@@ -24,6 +24,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.umn.contactview.MainActivity" />
         </activity>
+        <activity
+            android:name=".EditActivity"
+            android:label="@string/title_activity_edit"
+            android:parentActivityName=".DetailsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.umn.contactview.DetailsActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -4,29 +4,22 @@ package edu.umn.contactview;
  * Created by aeldred on 2/13/15.
  */
 public class Contact {
-
-    //static = method doesn't operate on individual instance of class
-    public static Contact[] getAll() {
-        //for demonstrative purposes only - do not use in homework
-        //data needs to be persisted in homework assignment
-        return new Contact[] {
-                new Contact("Malcolm Reynolds","Captain","555-2345"),
-                new Contact("Jayne Cobb", "Muscle","555-4567"),
-                new Contact("Jim Rowe","Executive","555-2345"),
-                new Contact("Kyle Mirth","Sales","555-8765")
-        };
-    }
-
-    public Contact(String name, String title, String phone) {
-        this.name = name;
-        this.title = title;
-        this.phone = phone;
-    }
     private String name;
     private String email;
     private String title;
     private String phone;
     private String twitterId;
+    private String _id;
+    private String groupId;
+
+    //static = method doesn't operate on individual instance of class
+
+/*    public Contact(String name, String title, String phone) {
+        this.name = name;
+        this.title = title;
+        this.phone = phone;
+    }
+*/
 
     public String getName() {
         return name;
@@ -66,5 +59,21 @@ public class Contact {
 
     public void setTwitterId(String twitterId) {
         this.twitterId = twitterId;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 }

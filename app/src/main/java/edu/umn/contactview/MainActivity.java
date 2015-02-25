@@ -3,8 +3,11 @@ package edu.umn.contactview;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.http.AndroidHttpClient;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +17,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpUriRequest;
+
+import java.io.InputStreamReader;
+import java.util.List;
+
 
 public class MainActivity extends ListActivity {
 
@@ -22,9 +34,11 @@ public class MainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        new GetContactTask().execute();
+
         //attach our adapter to the activity
         //if asking for "Context", asking for "Activity" which is a sub-class of context
-        setListAdapter(new ContactAdapter(this, R.layout.contact_item, Contact.getAll()));
+        //setListAdapter(new ContactAdapter(this, R.layout.contact_item, GetContactTask.get_contacts()));
     }
 
     @Override
@@ -69,7 +83,7 @@ public class MainActivity extends ListActivity {
     //easier to make adapter an inner class - common to put this in activity class
     class ContactAdapter extends ArrayAdapter<Contact> {
 
-        public ContactAdapter(Context context, int resource, Contact[] objects) {
+        public ContactAdapter(Context context, int resource, List<Contact> objects) {
             super(context, resource, objects);
         }
 
@@ -105,6 +119,50 @@ public class MainActivity extends ListActivity {
         }
     }
 
+    //This provides the basic functionality for retrieving all current contacts
+    //from web service.
+    //TODO move to own class ?
+    //TODO add additional tasks for other RESTful services
+    private class GetContactTask extends AsyncTask<String, Void, ServiceResult> {
+        private String URL_BASE = getString(R.string.URL_BASE);
+        private String API_KEY = getString(R.string.API_KEY);
+        private ServiceResult result;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected ServiceResult doInBackground(String... params) {
+//            String contactId = params[0];
+            try {
+                AndroidHttpClient client = AndroidHttpClient.newInstance("Android", null);
+                HttpUriRequest request = new HttpGet(URL_BASE + "contacts" +
+                            "?key=" + API_KEY);
+                HttpResponse response = client.execute(request);
+                Gson gson = new Gson();
+                result = gson.fromJson(
+                        new InputStreamReader(response.getEntity().getContent()),
+                        ServiceResult.class);
+
+                client.close();
+                return result;
+            }
+            catch (Exception ex) {
+                Log.w("GetContactTask", "Error getting contact", ex);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ServiceResult result) {
+            super.onPostExecute(result);
+
+            //String test = result.toString();
+            //Log.w("onPostExecute","GSON Result: " + test);
+            setListAdapter(new ContactAdapter(getApplicationContext(), R.layout.contact_item, result.getContacts()));
+        }
+    }
     // The next two are called when we switch back into this activity
     @Override
     protected void onStart() {

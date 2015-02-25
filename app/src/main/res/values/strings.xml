@@ -6,5 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_details">DetailsActivity</string>
     <string name="title_activity_edit">EditActivity</string>
+    <string name="URL_BASE">http://contacts.tinyapollo.com/</string>
+    <string name="API_KEY">grumpy</string>
 
 </resources>

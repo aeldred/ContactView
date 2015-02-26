@@ -18,7 +18,7 @@ public class DetailsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        ContactManager contactMgr = ContactManager.getInstance();
+        ContactManager contactMgr = ContactManager.getInstance(this);
 
         if (!(getIntent().getExtras().getString("_id") == null)) {
             contactId = getIntent().getExtras().getString("_id");

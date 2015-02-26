@@ -14,7 +14,7 @@ public class EditActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-        ContactManager contactMgr = ContactManager.getInstance();
+        ContactManager contactMgr = ContactManager.getInstance(this);
 
         if (!(getIntent().getExtras().getString("_id") == null)) {
             String contactId = getIntent().getExtras().getString("_id");
@@ -84,7 +84,7 @@ public class EditActivity extends Activity {
     // data from the text fields and pass it to the ContactManager
     private void SaveChanges(String contactId)
     {
-        ContactManager contactMgr = ContactManager.getInstance();
+        ContactManager contactMgr = ContactManager.getInstance(this);
         Contact mContact = new Contact();
 
         contactMgr.UpdateContact(contactId, mContact);

@@ -20,21 +20,17 @@ public class DetailsActivity extends Activity {
 
         ContactManager contactMgr = ContactManager.getInstance(this);
 
-        if (!(getIntent().getExtras().getString("_id") == null)) {
+        try {
             contactId = getIntent().getExtras().getString("_id");
+            Contact mContact = contactMgr.GetContact(contactId);
 
-            // Check if there is a problem or creating a new contact
-            if (contactId.equals("-1")) {
-                //Do nothing and the defaults will be displayed
-            } else {
-                Contact mContact = contactMgr.GetContact(contactId);
-
-                ((TextView) findViewById(R.id.detailsName)).setText(mContact.getName());
-                ((TextView) findViewById(R.id.detailsEmail)).setText(mContact.getEmail());
-                ((TextView) findViewById(R.id.detailsPhone)).setText(mContact.getPhone());
-                ((TextView) findViewById(R.id.detailsTitle)).setText(mContact.getTitle());
-                ((TextView) findViewById(R.id.detailsTwitter)).setText(mContact.getTwitterId());
-            }
+            ((TextView) findViewById(R.id.detailsName)).setText(mContact.getName());
+            ((TextView) findViewById(R.id.detailsEmail)).setText(mContact.getEmail());
+            ((TextView) findViewById(R.id.detailsPhone)).setText(mContact.getPhone());
+            ((TextView) findViewById(R.id.detailsTitle)).setText(mContact.getTitle());
+            ((TextView) findViewById(R.id.detailsTwitter)).setText(mContact.getTwitterId());
+        } catch (Exception e) {
+            //if no id is returned, then this is an add
         }
     }
 

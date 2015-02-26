@@ -16,22 +16,18 @@ public class EditActivity extends Activity {
 
         ContactManager contactMgr = ContactManager.getInstance(this);
 
-        if (!(getIntent().getExtras().getString("_id") == null)) {
+        try {
             String contactId = getIntent().getExtras().getString("_id");
-
-            // Check if there is a problem or creating a new contact
-            if (contactId.equals("-1")) {
-                //Do nothing and the defaults will be displayed
-            } else {
-                Contact mContact = contactMgr.GetContact(contactId);
-
-                ((TextView) findViewById(R.id.editName)).setText(mContact.getName());
-                ((TextView) findViewById(R.id.editEmail)).setText(mContact.getEmail());
-                ((TextView) findViewById(R.id.editPhone)).setText(mContact.getPhone());
-                ((TextView) findViewById(R.id.editTitle)).setText(mContact.getTitle());
-                ((TextView) findViewById(R.id.editTwitter)).setText(mContact.getTwitterId());
-            }
+            Contact mContact = contactMgr.GetContact(contactId);
+            ((TextView) findViewById(R.id.editName)).setText(mContact.getName());
+            ((TextView) findViewById(R.id.editEmail)).setText(mContact.getEmail());
+            ((TextView) findViewById(R.id.editPhone)).setText(mContact.getPhone());
+            ((TextView) findViewById(R.id.editTitle)).setText(mContact.getTitle());
+            ((TextView) findViewById(R.id.editTwitter)).setText(mContact.getTwitterId());
+        } catch (Exception e) {
+            //this is an add if the contact is null
         }
+
     }
 
 

@@ -34,11 +34,12 @@ public class MainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new GetContactTask().execute();
+        ContactManager.getInstance(this);
+
 
         //attach our adapter to the activity
         //if asking for "Context", asking for "Activity" which is a sub-class of context
-        //setListAdapter(new ContactAdapter(this, R.layout.contact_item, GetContactTask.get_contacts()));
+        //setListAdapter(new ContactAdapter(this, R.layout.contact_item, contactManager.getContacts()));
     }
 
     @Override
@@ -53,7 +54,7 @@ public class MainActivity extends ListActivity {
         // Create a new intent that points to the Details activity
         // then start the new activity
         Intent intent = new Intent(this, DetailsActivity.class);
-        intent.putExtra("name", contact.getName());
+        intent.putExtra("_id", contact.get_id());
         startActivity(intent);
     }
 
@@ -69,16 +70,31 @@ public class MainActivity extends ListActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+
+            case R.id.action_add:
+                Intent editIntent = new Intent(this,EditActivity.class);
+                editIntent.putExtra("_id", "1");
+                startActivity(editIntent);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
+
     }
 
+    public void updateAdapter(List<Contact> objects) {
+        setListAdapter(new ContactAdapter(MainActivity.this, R.layout.contact_item, objects));
+    }
 
     //easier to make adapter an inner class - common to put this in activity class
     class ContactAdapter extends ArrayAdapter<Contact> {
@@ -119,50 +135,6 @@ public class MainActivity extends ListActivity {
         }
     }
 
-    //This provides the basic functionality for retrieving all current contacts
-    //from web service.
-    //TODO move to own class ?
-    //TODO add additional tasks for other RESTful services
-    private class GetContactTask extends AsyncTask<String, Void, ServiceResult> {
-        private String URL_BASE = getString(R.string.URL_BASE);
-        private String API_KEY = getString(R.string.API_KEY);
-        private ServiceResult result;
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected ServiceResult doInBackground(String... params) {
-//            String contactId = params[0];
-            try {
-                AndroidHttpClient client = AndroidHttpClient.newInstance("Android", null);
-                HttpUriRequest request = new HttpGet(URL_BASE + "contacts" +
-                            "?key=" + API_KEY);
-                HttpResponse response = client.execute(request);
-                Gson gson = new Gson();
-                result = gson.fromJson(
-                        new InputStreamReader(response.getEntity().getContent()),
-                        ServiceResult.class);
-
-                client.close();
-                return result;
-            }
-            catch (Exception ex) {
-                Log.w("GetContactTask", "Error getting contact", ex);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(ServiceResult result) {
-            super.onPostExecute(result);
-
-            //String test = result.toString();
-            //Log.w("onPostExecute","GSON Result: " + test);
-            setListAdapter(new ContactAdapter(getApplicationContext(), R.layout.contact_item, result.getContacts()));
-        }
-    }
     // The next two are called when we switch back into this activity
     @Override
     protected void onStart() {

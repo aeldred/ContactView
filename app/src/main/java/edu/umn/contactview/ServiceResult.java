@@ -18,7 +18,7 @@ public class ServiceResult {
     @Override
     public String toString() {
         String value = "";
-
+            //comment
         Iterator i = this.getContacts().iterator();
 
         while (i.hasNext()) {

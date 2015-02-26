@@ -11,14 +11,33 @@ import android.widget.TextView;
 
 public class DetailsActivity extends Activity {
 
+    String contactId = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        String name = getIntent().getExtras().getString("name");
-        ((TextView)findViewById(R.id.detailsName)).setText(name);
+        ContactManager contactMgr = ContactManager.getInstance(this);
+
+        if (!(getIntent().getExtras().getString("_id") == null)) {
+            contactId = getIntent().getExtras().getString("_id");
+
+            // Check if there is a problem or creating a new contact
+            if (contactId.equals("-1")) {
+                //Do nothing and the defaults will be displayed
+            } else {
+                Contact mContact = contactMgr.GetContact(contactId);
+
+                ((TextView) findViewById(R.id.detailsName)).setText(mContact.getName());
+                ((TextView) findViewById(R.id.detailsEmail)).setText(mContact.getEmail());
+                ((TextView) findViewById(R.id.detailsPhone)).setText(mContact.getPhone());
+                ((TextView) findViewById(R.id.detailsTitle)).setText(mContact.getTitle());
+                ((TextView) findViewById(R.id.detailsTwitter)).setText(mContact.getTwitterId());
+            }
+        }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -36,10 +55,16 @@ public class DetailsActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            return true;
+        }
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_edit) {
             // Create a new intent that points to the Details activity
             // then start the new activity
             Intent intent = new Intent(this, EditActivity.class);
-            intent.putExtra("name", ((TextView)findViewById(R.id.detailsName)).getText());
+            intent.putExtra("_id", contactId);
             startActivity(intent);
             return true;
         }

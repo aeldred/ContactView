@@ -1,7 +1,6 @@
 package edu.umn.contactview;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,8 +14,24 @@ public class EditActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-        String name = getIntent().getExtras().getString("name");
-        ((TextView)findViewById(R.id.editName)).setText(name);
+        ContactManager contactMgr = ContactManager.getInstance(this);
+
+        if (!(getIntent().getExtras().getString("_id") == null)) {
+            String contactId = getIntent().getExtras().getString("_id");
+
+            // Check if there is a problem or creating a new contact
+            if (contactId.equals("-1")) {
+                //Do nothing and the defaults will be displayed
+            } else {
+                Contact mContact = contactMgr.GetContact(contactId);
+
+                ((TextView) findViewById(R.id.editName)).setText(mContact.getName());
+                ((TextView) findViewById(R.id.editEmail)).setText(mContact.getEmail());
+                ((TextView) findViewById(R.id.editPhone)).setText(mContact.getPhone());
+                ((TextView) findViewById(R.id.editTitle)).setText(mContact.getTitle());
+                ((TextView) findViewById(R.id.editTwitter)).setText(mContact.getTwitterId());
+            }
+        }
     }
 
 
@@ -62,5 +77,22 @@ public class EditActivity extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
+    }
+
+
+    // We want to create an object of type contact and update it with the
+    // data from the text fields and pass it to the ContactManager
+    private void SaveChanges(String contactId)
+    {
+        ContactManager contactMgr = ContactManager.getInstance(this);
+        Contact mContact = new Contact();
+
+        contactMgr.UpdateContact(contactId, mContact);
+    }
+
+    // Abort!!! don't save changes, don't pass anything to ContactManager
+    private void DiscardChanges()
+    {
+
     }
 }

@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 public class EditActivity extends Activity {
 
+    String contactId = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,11 +19,12 @@ public class EditActivity extends Activity {
         ContactManager contactMgr = ContactManager.getInstance(this);
 
         if (!(getIntent().getExtras().getString("_id") == null)) {
-            String contactId = getIntent().getExtras().getString("_id");
+            contactId = getIntent().getExtras().getString("_id");
 
             // Check if there is a problem or creating a new contact
             if (contactId.equals("-1")) {
-                //Do nothing and the defaults will be displayed
+                //TODO get a new Id from the Contact Manager
+                //contactId = contactMgr.GetNextId();
             } else {
                 Contact mContact = contactMgr.GetContact(contactId);
 

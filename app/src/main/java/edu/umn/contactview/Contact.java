@@ -76,4 +76,12 @@ public class Contact {
     public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
+
+    public Boolean equals (String id) {
+        if (this._id.equals(id)) {
+            return Boolean.TRUE;
+        } else {
+            return Boolean.FALSE;
+        }
+    }
 }

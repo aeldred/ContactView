@@ -33,7 +33,6 @@ public class MainActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ContactManager.getInstance(this);
 
 
@@ -81,7 +80,7 @@ public class MainActivity extends ListActivity {
 
             case R.id.action_add:
                 Intent editIntent = new Intent(this,EditActivity.class);
-                editIntent.putExtra("_id", "1");
+                editIntent.putExtra("_id", "-1");
                 startActivity(editIntent);
                 return true;
 

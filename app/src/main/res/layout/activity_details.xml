@@ -10,13 +10,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
         android:text="Name:"
         android:id="@+id/tv_name"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_above="@+id/detailsPhone"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/detailsName"
         android:layout_toStartOf="@+id/detailsName"
-        android:layout_above="@+id/detailsPhone" />
+        android:layout_margin="5dp"
+        android:layout_marginTop="5dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -33,13 +36,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
         android:text="Phone:"
         android:id="@+id/tv_phone"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/detailsPhone"
-        android:layout_toStartOf="@+id/detailsPhone"
-        android:layout_above="@+id/detailsTitle" />
+        android:layout_toStartOf="@+id/detailsName"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_above="@+id/detailsTitle"
+        android:layout_below="@+id/tv_name"
+        android:layout_margin="5dp"
+        android:layout_marginTop="5dp" />
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -98,10 +104,12 @@
         android:id="@+id/tv_title"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_above="@+id/detailsEmail"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tv_phone"
-        android:layout_toStartOf="@+id/detailsTitle" />
+        android:layout_toStartOf="@+id/detailsTitle"
+        android:layout_above="@+id/tv_email"
+        android:layout_marginTop="5dp"
+        android:layout_margin="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -113,7 +121,9 @@
         android:layout_above="@+id/detailsTwitter"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/detailsTitle"
-        android:layout_toStartOf="@+id/detailsTitle" />
+        android:layout_toStartOf="@+id/detailsTitle"
+        android:layout_margin="5dp"
+        android:layout_marginTop="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -125,7 +135,9 @@
         android:layout_below="@+id/tv_email"
         android:layout_alignEnd="@+id/tv_email"
         android:layout_alignBottom="@+id/detailsTwitter"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_margin="5dp"
+        android:layout_marginTop="5dp" />
 
 
 </RelativeLayout>

@@ -9,4 +9,21 @@
         android:orderInCategory="100"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_add"
+        android:title="@string/action_add"
+        android:orderInCategory="100"
+        android:icon="@drawable/add"
+        android:showAsAction="always"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_search"
+        android:title="@string/action_search"
+        android:orderInCategory="100"
+        android:icon="@drawable/search"
+        android:showAsAction="always"
+        app:showAsAction="never" />
+
+
 </menu>

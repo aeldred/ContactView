@@ -1,5 +1,6 @@
 package edu.umn.contactview;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
@@ -12,7 +13,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 
 import java.io.InputStreamReader;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Created by ryan on 2/21/15.
@@ -27,14 +30,19 @@ public class ContactManager {
     private static List<Contact> contacts;
 
     public static ContactManager getInstance(Context aContext) {
-        if (aContext instanceof MainActivity) {
-            activity = (MainActivity)aContext;
-        }
+        //(aContext.getClass().cast(activity).updateAdapter(contacts);
+
         if (!isPopulated) {
+            if (aContext instanceof MainActivity) {
+                activity = (MainActivity)aContext;
+            }
             ourInstance = new ContactManager();
             isPopulated = Boolean.TRUE;
         } else {
-            activity.updateAdapter(contacts);
+            if (aContext instanceof MainActivity) {
+                activity = (MainActivity)aContext;
+                activity.updateAdapter(contacts);
+            }
         }
 
         return ourInstance;
@@ -74,6 +82,7 @@ public class ContactManager {
                         new InputStreamReader(response.getEntity().getContent()),
                         ServiceResult.class);
 
+                //Log.w("GetContactTask", "Retrieved contacts\n" + result.toString());
                 client.close();
                 return result;
             }
@@ -98,20 +107,32 @@ public class ContactManager {
 
     public Contact GetContact(String mId)
     {
-        Contact mContact = new Contact();
-        mContact.setName("Yo mamma!");
-        mContact.setPhone("555-555-5555");
-        mContact.setEmail("yomamma@g.com");
-        mContact.setTitle("the boss");
-        mContact.setTwitterId("@yomamma");
-        mContact.set_id(mId);
-
-        return mContact;
+        try {
+            return getContactById(mId);
+        }
+        catch (Exception ex) {
+            Log.w("GetContact","No Contact with id=[" + mId + "]");
+            return null;
+        }
     }
 
     public void UpdateContact(String mId, Contact mContact)
     {
         // Update the JSON data
+
+
+    }
+
+    public Contact getContactById(String id) {
+        Iterator<Contact> itr = contacts.iterator();
+
+        while (itr.hasNext()) {
+            Contact curr = itr.next();
+            if (curr.equals(id)) {
+                return curr;
+            }
+        }
+        return null;
     }
 
     public void DeleteContact(String sid){

@@ -44,12 +44,9 @@ public class MainActivity extends ListActivity {
     }
 
     @Override
-    //listView - never need to look at this
-    //View - generally don't need this
-    // most interested in position or id
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Contact contact = (Contact)getListAdapter().getItem(position);
-        //makeText only makes the text, need to add show() to actually display the text
+
         //Toast.makeText(this, "Clicked " + contact.getName(), Toast.LENGTH_LONG).show();
 
         // Create a new intent that points to the Details activity
@@ -146,6 +143,7 @@ public class MainActivity extends ListActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
     }
 
     // The next two are called when we switch away from this activity

@@ -11,6 +11,7 @@ public class Contact {
     private String twitterId;
     private String _id;
     private String groupId;
+    private Boolean isValid = Boolean.TRUE;
 
     //static = method doesn't operate on individual instance of class
 

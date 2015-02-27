@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -173,19 +174,10 @@ public class ContactManager {
             try {
                 //result.setContacts(contacts);
                 AndroidHttpClient client = AndroidHttpClient.newInstance("Android", null);
-                //String objJson = new Gson().toJson(result.getContacts());
-                //objJson = objJson.replaceFirst("contacts","key\":\"grumpy\",\"contacts");
-                //objJson = "key=grumpy&" + objJson;
-//                Log.w("PersistDataTask","TESTING DATA: " + data[0] + "\nURL: " + data[1]);
-                //ArrayList<NameValuePair> nameValPair = new ArrayList();
-                //nameValPair.add(new BasicNameValuePair("JSON",objJson));
 
-                int index = data[1].indexOf("?");
-                String base_url = URL_BASE + "contacts" + data[1].substring(0,index);
-                String encoded = URLEncoder.encode(data[1].substring(index+1),"UTF-8");
-                String url = base_url + "?" + encoded;
+                String base_url = URL_BASE + "contacts";
+                String url = base_url + data[1];
 
-                //String encoded = URLEncoder.encode(data[1], "UTF-8");
                 switch (data[0]) {
                     case "PST":
                         post = new HttpPost(url);
@@ -212,8 +204,16 @@ public class ContactManager {
                             new InputStreamReader(resp.getEntity().getContent()),
                             ServiceResult.class);
 
+                    /*
+                    String test = result.toString();
 
-                    Log.w("PersistDataTask", ""+resp.getStatusLine().getStatusCode());
+
+                    InputStream is = resp.getEntity().getContent();
+                    String test = convertStreamToString(is);
+                    Log.w("TESTING", test);
+                    */
+
+                    //Log.w("PersistDataTask", ""+resp.getStatusLine().getStatusCode() + " - " + resp.getStatusLine().getReasonPhrase());
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -287,13 +287,28 @@ public class ContactManager {
             // update instance data
             int pos = getContactPositionById(mId);
             contacts.set(pos, mContact);
+            String name = mContact.getName();
+            String title = mContact.getTitle();
+            String email = mContact.getEmail();
+            String twitter = mContact.getTwitterId();
+            String phone = mContact.getPhone();
 
-            String data = "PUT|/" + mContact.get_id() + "?key=grumpy&" +
-                    "name=" + mContact.getName() +
-                    "&title=" + mContact.getTitle() +
-                    "&email=" + mContact.getEmail() +
-                    "&twitterId=" + mContact.getTwitterId() +
-                    "&phone=" + mContact.getPhone();
+            try {
+                name = URLEncoder.encode(name,"UTF-8");
+                title = URLEncoder.encode(title,"UTF-8");
+                email = URLEncoder.encode(email,"UTF-8");
+                twitter = URLEncoder.encode(twitter,"UTF-8");
+                phone = URLEncoder.encode(phone,"UTF-8");
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            String data = "PUT|/" + mContact.get_id() + "?key=grumpy" +
+                    "&name=" + name +
+                    "&title=" + title +
+                    "&email=" + email +
+                    "&twitterId=" + twitter +
+                    "&phone=" + phone;
             // Update the JSON data
             ContactManager.getInstance(activity).persistData(data);
         } catch (ContactNotFoundException e) {
@@ -304,13 +319,29 @@ public class ContactManager {
     }
 
     public void AddContact(Contact mContact) {
-            String data = "PST|" + "?key=grumpy&" +
-                //"_id=" + mContact.get_id() +
-                "name=" + mContact.getName() +
-                "&title=" + mContact.getTitle() +
-                "&email=" + mContact.getEmail() +
-                "&twitterId=" + mContact.getTwitterId() +
-                "&phone=" + mContact.getPhone();
+        String name = mContact.getName();
+        String title = mContact.getTitle();
+        String email = mContact.getEmail();
+        String twitter = mContact.getTwitterId();
+        String phone = mContact.getPhone();
+
+        try {
+            name = URLEncoder.encode(name,"UTF-8");
+            title = URLEncoder.encode(title,"UTF-8");
+            email = URLEncoder.encode(email,"UTF-8");
+            twitter = URLEncoder.encode(twitter,"UTF-8");
+            phone = URLEncoder.encode(phone,"UTF-8");
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String data = "PST|" + "?key=grumpy" +
+                    "&name=" + name +
+                    "&title=" + title +
+                    "&email=" + email +
+                    "&twitterId=" + twitter +
+                    "&phone=" + phone;
+
         // Update the JSON data
         ContactManager.getInstance(activity).persistData(data);
 
@@ -329,7 +360,7 @@ public class ContactManager {
             int pos = getContactPositionById(mId);
             contacts.remove(pos);
 
-            String data = "DEL|/" + mId + "?key=grumpy&";
+            String data = "DEL|/" + mId + "?key=grumpy";
 
             // delete from json and persist data
             ContactManager.getInstance(activity).persistData(data);
@@ -339,7 +370,7 @@ public class ContactManager {
     }
 
     public void GetSavedContact(String mId) {
-        String data = "GET|/" + mId + "?key=grumpy&";
+        String data = "GET|/" + mId + "?key=grumpy";
 
         // get a specific contact from persisted data
         ContactManager.getInstance(activity).persistData(data);

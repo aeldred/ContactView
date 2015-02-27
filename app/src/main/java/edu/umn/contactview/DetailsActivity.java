@@ -2,6 +2,7 @@ package edu.umn.contactview;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -58,16 +59,8 @@ public class DetailsActivity extends Activity {
 
        if(id==R.id.action_delete)
         {
-            //ServiceResult sd = new ServiceResult();
-            ContactManager delContact = ContactManager.getInstance(this);
-            EditText nameView = (EditText)findViewById(R.id.detailsName);
-            String actual_id= String.valueOf(nameView.getId());
-            String name = nameView.getText().toString();
-            Contact mContact = delContact.GetContact(contactId);
-            //String id = contactId.concat()
-            delContact.DeleteContact(mContact.get_id());
-            Intent prevIntent = new Intent(this,MainActivity.class);
-            startActivity(prevIntent);
+            DeleteContact();
+            finish();
         }
 
         //noinspection SimplifiableIfStatement

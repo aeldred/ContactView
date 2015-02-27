@@ -11,54 +11,54 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name:"
+        android:textSize="20dp"
         android:id="@+id/tv_name"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_above="@+id/detailsPhone"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/detailsName"
-        android:layout_margin="5dp"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="10dp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:ems="10"
+        android:ems="12"
         android:id="@+id/detailsName"
         android:editable="false"
         android:enabled="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_margin="0dp"
+        android:layout_alignRight="@+id/tv_name"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Phone:"
-        android:id="@+id/tv_phone"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/detailsName"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_above="@+id/detailsTitle"
-        android:layout_below="@+id/tv_name"
-        android:layout_margin="5dp"
-        android:layout_marginTop="5dp" />
+        android:textSize="20dp"
+        android:id="@+id/phone"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/detailsName"
+        />
+
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="phone"
         android:ems="10"
         android:id="@+id/detailsPhone"
         android:layout_below="@+id/detailsName"
         android:layout_alignEnd="@+id/detailsName"
-        android:text="Phone"
-        android:phoneNumber="true"
         android:enabled="true"
         android:editable="false"
-        android:layout_alignStart="@+id/detailsName" />
+        android:layout_alignStart="@+id/detailsName"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title:"
+        android:textSize="20dp"
+        android:id="@+id/title"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/phone"
+        />
 
 
 
@@ -68,76 +68,53 @@
         android:id="@+id/detailsTitle"
         android:layout_below="@+id/detailsPhone"
         android:layout_alignEnd="@+id/detailsPhone"
-        android:text="Title"
         android:editable="false"
         android:enabled="true"
-        android:layout_alignStart="@+id/detailsPhone" />
+        android:layout_alignStart="@+id/detailsPhone"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textSize="20dp"
+        android:id="@+id/tv_email"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="20dp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/detailsEmail"
         android:layout_below="@+id/detailsTitle"
         android:layout_alignEnd="@+id/detailsTitle"
-        android:text="Email"
         android:editable="false"
         android:enabled="true"
-        android:layout_alignStart="@+id/detailsTitle" />
+        android:textStyle="bold"
+        android:layout_alignStart="@+id/detailsTitle"
+        android:layout_marginTop="10dp"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/detailsTwitter"
         android:layout_below="@+id/detailsEmail"
-        android:layout_alignEnd="@+id/detailsEmail"
-        android:text="Twitter"
+        android:ems="10"
         android:editable="false"
         android:enabled="true"
+        android:layout_marginTop="10dp"
+        android:layout_alignEnd="@+id/detailsEmail"
+        android:layout_toEndOf="@+id/tv_twitter"
         android:layout_alignStart="@+id/detailsEmail" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Title:"
-        android:id="@+id/tv_title"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tv_phone"
-        android:layout_toStartOf="@+id/detailsTitle"
-        android:layout_above="@+id/tv_email"
-        android:layout_marginTop="5dp"
-        android:layout_margin="5dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email"
-        android:id="@+id/tv_email"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_above="@+id/detailsTwitter"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/detailsTitle"
-        android:layout_toStartOf="@+id/detailsTitle"
-        android:layout_margin="5dp"
-        android:layout_marginTop="5dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Twitter"
+        android:textSize="20dp"
         android:id="@+id/tv_twitter"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_below="@+id/tv_email"
-        android:layout_alignEnd="@+id/tv_email"
-        android:layout_alignBottom="@+id/detailsTwitter"
-        android:layout_alignParentStart="true"
-        android:layout_margin="5dp"
-        android:layout_marginTop="5dp" />
-
+        android:layout_marginTop="20dp" />
 
 </RelativeLayout>

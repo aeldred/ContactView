@@ -134,4 +134,9 @@ public class ContactManager {
         }
         return null;
     }
+
+    public void DeleteContact(String sid){
+        Contact mContact = new Contact();
+        contacts.remove(sid);
+    }
 }

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +54,7 @@ public class MainActivity extends ListActivity {
         Intent intent = new Intent(this, DetailsActivity.class);
         intent.putExtra("_id", contact.get_id());
         startActivity(intent);
+
     }
 
     @Override
@@ -78,7 +80,7 @@ public class MainActivity extends ListActivity {
 
             case R.id.action_add:
                 Intent editIntent = new Intent(this,EditActivity.class);
-                editIntent.putExtra("_id", "1");
+                editIntent.putExtra("_id", "-1");
                 startActivity(editIntent);
                 return true;
 

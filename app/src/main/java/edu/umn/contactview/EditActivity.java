@@ -1,6 +1,7 @@
 package edu.umn.contactview;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,21 +11,20 @@ import android.widget.TextView;
 public class EditActivity extends Activity {
 
     Contact mContact=null;
+    String contactId;
+    ContactManager contactMgr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
-        ContactManager contactMgr = ContactManager.getInstance(this);
+        contactMgr = ContactManager.getInstance(this);
 
         if (!(getIntent().getExtras().getString("_id") == null)) {
-            String contactId = getIntent().getExtras().getString("_id");
+            contactId = getIntent().getExtras().getString("_id");
 
             // Check if there is a problem or creating a new contact
-            if (contactId.equals("-1")) {
-                mContact = contactMgr.CreateContact();
-            } else {
-                mContact = contactMgr.GetContact(contactId);
-            }
+
+            mContact = contactMgr.GetContact(contactId);
             ((TextView) findViewById(R.id.editName)).setText(mContact.getName());
             ((TextView) findViewById(R.id.editEmail)).setText(mContact.getEmail());
             ((TextView) findViewById(R.id.editPhone)).setText(mContact.getPhone());
@@ -51,6 +51,29 @@ public class EditActivity extends Activity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+
+
+        if (id == R.id.action_save) {
+            String name= ((TextView)findViewById(R.id.editName)).getText().toString();
+            String email = ((TextView)findViewById(R.id.editEmail)).getText().toString();
+            String phone=((TextView) findViewById(R.id.editPhone)).getText().toString();
+            String title= ((TextView) findViewById(R.id.editTitle)).getText().toString();
+            String twitter=((TextView) findViewById(R.id.editTwitter)).getText().toString();
+            mContact.setName(name);
+            mContact.setEmail(email);
+            mContact.setPhone(phone);
+            mContact.setTitle(title);
+            mContact.setTwitterId(twitter);
+            contactMgr.localUpdateContact(contactId, mContact);
+            finish();
+            startActivity(getIntent());
+            return true;
+        }
+
+        if (id == R.id.action_delete) {
+            contactMgr.localDeleteContact(contactId);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

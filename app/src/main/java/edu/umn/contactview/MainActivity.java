@@ -77,7 +77,6 @@ public class MainActivity extends ListActivity {
 //        }
 
         switch (item.getItemId()) {
-
             case R.id.action_add:
                 Intent editIntent = new Intent(this,EditActivity.class);
                 editIntent.putExtra("_id", "-1");

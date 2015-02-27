@@ -12,23 +12,22 @@ import android.widget.TextView;
 public class DetailsActivity extends Activity {
 
     String contactId = null;
-
+    ContactManager contactMgr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        ContactManager contactMgr = ContactManager.getInstance(this);
+        contactMgr = ContactManager.getInstance(this);
 
-        if (!(getIntent().getExtras().getString("_id") == null)) {
+        if ((getIntent().getExtras().getString("_id") != null)) {
             contactId = getIntent().getExtras().getString("_id");
 
             // Check if there is a problem or creating a new contact
             if (contactId.equals("-1")) {
                 //Do nothing and the defaults will be displayed
             } else {
-                Contact mContact = contactMgr.GetContact(contactId);
-
+                 Contact mContact = contactMgr.GetContact(contactId);
                 ((TextView) findViewById(R.id.detailsName)).setText(mContact.getName());
                 ((TextView) findViewById(R.id.detailsEmail)).setText(mContact.getEmail());
                 ((TextView) findViewById(R.id.detailsPhone)).setText(mContact.getPhone());
@@ -68,7 +67,10 @@ public class DetailsActivity extends Activity {
             startActivity(intent);
             return true;
         }
-
+        if (id == R.id.action_delete) {
+            contactMgr.localDeleteContact(contactId);
+            finish();
+        }
         return super.onOptionsItemSelected(item);
     }
 

@@ -97,32 +97,24 @@ public class ContactManager {
         }
     }
 
-    public Contact CreateContact(){
-        Contact newContact=new Contact();
+    public String GenerateId(){
         if(contacts.size()==0){
-            newContact.set_id("1");
+            return "1";
         }else{
             long max=0;
-            //loop ........not good :(
             Iterator it = contacts.iterator();
             while (it.hasNext()){
                 Contact tempContact=(Contact)it.next();
-                long tempId= ContactManager.convertor(tempContact.get_id());
+                long tempId= ContactManager.converter(tempContact.get_id());
                 if(tempId > max){
                     max = tempId;
                 }
             }
             String idStr=String.valueOf(max+1);
-            newContact.set_id(idStr);
+            return idStr;
         }
-        newContact.setName("");
-        newContact.setPhone("");
-        newContact.setEmail("");
-        newContact.setTitle("");
-        newContact.setTwitterId("");
-        return newContact;
     }
-    public static Long convertor(String hexStr){
+    public static Long converter(String hexStr){
         // get the value of last 16digit to convert
         hexStr= hexStr.substring(hexStr.length()-16, hexStr.length());
         Long value= Long.valueOf(hexStr, 16);
@@ -131,7 +123,23 @@ public class ContactManager {
 
     public Contact GetContact(String mId)
     {
-        Contact mContact = new Contact();
+        Iterator it = ContactManager.getContacts().iterator();
+        while (it.hasNext()){
+            Contact tempContact=(Contact)it.next();
+            if( tempContact.get_id().equals(mId) ){
+                return tempContact;
+            }
+        }
+
+        Contact newContact= new Contact();
+        newContact.set_id(this.GenerateId());
+        newContact.setName("");
+        newContact.setPhone("");
+        newContact.setEmail("");
+        newContact.setTitle("");
+        newContact.setTwitterId("");
+        return newContact;
+        /*
         mContact.setName("Yo mamma!");
         mContact.setPhone("555-555-5555");
         mContact.setEmail("yomamma@g.com");
@@ -139,10 +147,38 @@ public class ContactManager {
         mContact.setTwitterId("@yomamma");
         mContact.set_id(mId);
 
-        return mContact;
+        return mContact;*/
     }
 
-
+    public void localUpdateContact(String mId, Contact mContact)
+    {
+        //use hashMap to make it faster...
+        Iterator it = ContactManager.getContacts().iterator();
+        while (it.hasNext()){
+            Contact tempContact=(Contact)it.next();
+            if( tempContact.get_id().equals(mId) ){
+                tempContact.setName(mContact.getName());
+                tempContact.setPhone(mContact.getPhone());
+                tempContact.setTitle(mContact.getTitle());
+                tempContact.setTwitterId(mContact.getTwitterId());
+                return;
+            }
+        }
+        ContactManager.getContacts().add(mContact);
+        return;
+    }
+    public void localDeleteContact(String mId)
+    {
+        //use hashMap to make it faster...
+        Iterator it = ContactManager.getContacts().iterator();
+        while (it.hasNext()){
+            Contact tempContact=(Contact)it.next();
+            if( tempContact.get_id().equals(mId) ){
+                it.remove();
+                return;
+            }
+        }
+    }
     public void UpdateContact(String mId, Contact mContact)
     {
         // Update the JSON data

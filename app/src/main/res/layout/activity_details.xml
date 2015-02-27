@@ -7,137 +7,207 @@
     tools:context="edu.umn.contactview.DetailsActivity">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name:"
-        android:id="@+id/tv_name"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_above="@+id/detailsPhone"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/detailsName"
-        android:layout_margin="5dp"
-        android:layout_marginTop="5dp" />
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentStart="true">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:ems="10"
-        android:id="@+id/detailsName"
-        android:editable="false"
-        android:enabled="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Phone:"
-        android:id="@+id/tv_phone"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/detailsName"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_above="@+id/detailsTitle"
-        android:layout_below="@+id/tv_name"
-        android:layout_margin="5dp"
-        android:layout_marginTop="5dp" />
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:id="@+id/detailsPhone"
-        android:layout_below="@+id/detailsName"
-        android:layout_alignEnd="@+id/detailsName"
-        android:text="Phone"
-        android:phoneNumber="true"
-        android:enabled="true"
-        android:editable="false"
-        android:layout_alignStart="@+id/detailsName" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:id="@+id/tv_name"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:textSize="16sp"
+                android:layout_column="0"
+                android:layout_marginBottom="10dp" />
 
+        </TableRow>
 
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            >
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/detailsTitle"
-        android:layout_below="@+id/detailsPhone"
-        android:layout_alignEnd="@+id/detailsPhone"
-        android:text="Title"
-        android:editable="false"
-        android:enabled="true"
-        android:layout_alignStart="@+id/detailsPhone" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:ems="16"
+                android:id="@+id/detailsName"
+                android:editable="false"
+                android:enabled="true"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/tv_twitter"
+                android:layout_column="3"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp" />
+        </TableRow>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/detailsEmail"
-        android:layout_below="@+id/detailsTitle"
-        android:layout_alignEnd="@+id/detailsTitle"
-        android:text="Email"
-        android:editable="false"
-        android:enabled="true"
-        android:layout_alignStart="@+id/detailsTitle" />
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        </TableRow>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/detailsTwitter"
-        android:layout_below="@+id/detailsEmail"
-        android:layout_alignEnd="@+id/detailsEmail"
-        android:text="Twitter"
-        android:editable="false"
-        android:enabled="true"
-        android:layout_alignStart="@+id/detailsEmail" />
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Title:"
-        android:id="@+id/tv_title"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tv_phone"
-        android:layout_toStartOf="@+id/detailsTitle"
-        android:layout_above="@+id/tv_email"
-        android:layout_marginTop="5dp"
-        android:layout_margin="5dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone"
+                android:id="@+id/tv_phone"
+                android:layout_alignBaseline="@+id/detailsEmail"
+                android:layout_alignBottom="@+id/detailsEmail"
+                android:layout_alignParentStart="true"
+                android:layout_column="0"
+                android:layout_marginBottom="10dp" />
+        </TableRow>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email:"
-        android:id="@+id/tv_email"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_above="@+id/detailsTwitter"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/detailsTitle"
-        android:layout_toStartOf="@+id/detailsTitle"
-        android:layout_margin="5dp"
-        android:layout_marginTop="5dp" />
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Twitter:"
-        android:id="@+id/tv_twitter"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_below="@+id/tv_email"
-        android:layout_alignEnd="@+id/tv_email"
-        android:layout_alignBottom="@+id/detailsTwitter"
-        android:layout_alignParentStart="true"
-        android:layout_margin="5dp"
-        android:layout_marginTop="5dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:ems="16"
+                android:id="@+id/detailsPhone"
+                android:text="Phone"
+                android:phoneNumber="true"
+                android:enabled="true"
+                android:editable="false"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@+id/tv_phone"
+                android:layout_column="3"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:id="@+id/tv_title"
+                android:layout_below="@+id/detailsTwitter"
+                android:layout_alignParentStart="true"
+                android:layout_column="0"
+                android:layout_marginBottom="10dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/detailsTitle"
+                android:layout_below="@+id/detailsPhone"
+                android:layout_alignEnd="@+id/detailsPhone"
+                android:text="Title"
+                android:editable="false"
+                android:enabled="true"
+                android:layout_alignStart="@+id/detailsPhone"
+                android:layout_column="3"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:id="@+id/tv_email"
+                android:layout_below="@+id/tv_title"
+                android:layout_alignParentStart="true"
+                android:layout_column="0"
+                android:layout_marginBottom="10dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/detailsEmail"
+                android:layout_below="@+id/detailsTitle"
+                android:layout_alignEnd="@+id/detailsTitle"
+                android:text="Email"
+                android:editable="false"
+                android:enabled="true"
+                android:layout_alignStart="@+id/detailsTitle"
+                android:layout_column="3"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Twitter"
+                android:id="@+id/tv_twitter"
+                android:layout_below="@+id/tv_email"
+                android:layout_alignParentStart="true"
+                android:layout_column="0"
+                android:layout_marginBottom="10dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/detailsTwitter"
+                android:text="Twitter"
+                android:editable="false"
+                android:enabled="true"
+                android:layout_below="@+id/detailsEmail"
+                android:layout_alignStart="@+id/detailsEmail"
+                android:layout_column="3"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:singleLine="false" />
+        </TableRow>
+    </TableLayout>
 
 
 </RelativeLayout>

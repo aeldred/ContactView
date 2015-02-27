@@ -55,14 +55,11 @@ public class DetailsActivity extends Activity {
             return true;
         }
 
-//        if(id==R.id.action_delete)
-//        {
-//            //ServiceResult sd = new ServiceResult();
-//            ContactManager delContact = ContactManager.getInstance(this);
-//            delContact.DeleteContact(contactId);
-//            Intent prevIntent = new Intent(this,MainActivity.class);
-//            startActivity(prevIntent);
-//        }
+        if(id==R.id.action_delete)
+        {
+            DeleteContact();
+            finish();
+        }
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_edit) {
@@ -75,6 +72,18 @@ public class DetailsActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    // We want to create an object of type contact and update it with the
+    // data from the text fields and pass it to the ContactManager
+    private void DeleteContact()
+    {
+        if(contactId != null) {
+            ContactManager contactMgr = ContactManager.getInstance(this);
+
+            contactMgr.DeleteContact(contactId);
+        }
     }
 
     // The next two are called when we switch back into this activity

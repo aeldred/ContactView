@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 public class EditActivity extends Activity {
 
+    String contactId = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,7 +19,7 @@ public class EditActivity extends Activity {
         ContactManager contactMgr = ContactManager.getInstance(this);
 
         try {
-            String contactId = getIntent().getExtras().getString("_id");
+            contactId = getIntent().getExtras().getString("_id");
             Contact mContact = contactMgr.GetContact(contactId);
             ((TextView) findViewById(R.id.editName)).setText(mContact.getName());
             ((TextView) findViewById(R.id.editEmail)).setText(mContact.getEmail());
@@ -49,6 +51,16 @@ public class EditActivity extends Activity {
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_save) {
+            SaveChanges();
+            finish();
+            return true;
+        }
+        if (id == R.id.action_delete) {
+            DeleteContact();
+            finish();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -78,17 +90,30 @@ public class EditActivity extends Activity {
 
     // We want to create an object of type contact and update it with the
     // data from the text fields and pass it to the ContactManager
-    private void SaveChanges(String contactId)
+    private void SaveChanges()
     {
-        ContactManager contactMgr = ContactManager.getInstance(this);
-        Contact mContact = new Contact();
+        if(contactId != null) {
+            ContactManager contactMgr = ContactManager.getInstance(this);
+            Contact mContact = new Contact();
+            mContact.setName(((TextView) findViewById(R.id.editName)).getText().toString());
+            mContact.setTitle(((TextView) findViewById(R.id.editTitle)).getText().toString());
+            mContact.setEmail(((TextView) findViewById(R.id.editEmail)).getText().toString());
+            mContact.setPhone(((TextView) findViewById(R.id.editPhone)).getText().toString());
+            mContact.setTwitterId(((TextView) findViewById(R.id.editTwitter)).getText().toString());
+            mContact.set_id(contactId);
 
-        contactMgr.UpdateContact(contactId, mContact);
+            contactMgr.UpdateContact(contactId, mContact);
+        }
     }
 
-    // Abort!!! don't save changes, don't pass anything to ContactManager
-    private void DiscardChanges()
+    // We want to create an object of type contact and update it with the
+    // data from the text fields and pass it to the ContactManager
+    private void DeleteContact()
     {
+        if(contactId != null) {
+            ContactManager contactMgr = ContactManager.getInstance(this);
 
+            contactMgr.DeleteContact(contactId);
+        }
     }
 }

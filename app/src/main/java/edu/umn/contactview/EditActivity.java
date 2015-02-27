@@ -30,7 +30,7 @@ public class EditActivity extends Activity {
             ((TextView) findViewById(R.id.editTitle)).setText(mContact.getTitle());
             ((TextView) findViewById(R.id.editTwitter)).setText(mContact.getTwitterId());
         } catch (Exception e) {
-            contactId = null;
+            contactId = "-1";
             //this is an add if the contact is null
         }
 
@@ -120,7 +120,7 @@ public class EditActivity extends Activity {
         mContact.setPhone(((TextView) findViewById(R.id.editPhone)).getText().toString());
         mContact.setTwitterId(((TextView) findViewById(R.id.editTwitter)).getText().toString());
 
-        if(contactId != null) {
+        if(!contactId.equals("-1")) {
             mContact.set_id(contactId);
             contactMgr.UpdateContact(contactId, mContact);
         } else {

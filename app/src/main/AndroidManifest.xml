@@ -33,7 +33,7 @@
             android:parentActivityName=".DetailsActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.umn.contactview.DetailsActivity" />
+                android:value="edu.umn.contactview.MainActivity" />
         </activity>
     </application>
 

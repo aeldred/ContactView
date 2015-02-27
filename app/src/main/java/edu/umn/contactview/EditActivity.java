@@ -1,14 +1,18 @@
 package edu.umn.contactview;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class EditActivity extends Activity {
 
+    String contactId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +20,7 @@ public class EditActivity extends Activity {
         setContentView(R.layout.activity_edit);
 
         ContactManager contactMgr = ContactManager.getInstance(this);
-        String contactId = null;
+
         try {
             contactId = getIntent().getExtras().getString("_id");
             Contact mContact = contactMgr.GetContact(contactId);
@@ -26,8 +30,8 @@ public class EditActivity extends Activity {
             ((TextView) findViewById(R.id.editTitle)).setText(mContact.getTitle());
             ((TextView) findViewById(R.id.editTwitter)).setText(mContact.getTwitterId());
         } catch (Exception e) {
+            contactId = null;
             //this is an add if the contact is null
-            contactId = "-1";
         }
 
     }
@@ -47,33 +51,49 @@ public class EditActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        if (id == R.id.action_save) {
-            SaveChanges();
-            finish();
-            return true;
-        }
-        if (id == R.id.action_delete) {
-            DeleteContact();
-            finish();
-            return true;
+        switch(id) {
+            case R.id.action_settings:
+                break;
+            case R.id.action_save:
+                SaveChanges();
+                ShowToast("Changes Saved");
+                finish();
+                break;
+            case R.id.action_delete:
+                DeleteContact();
+                ShowToast("Contact Deleted");
+                NavUtils.navigateUpFromSameTask(this);
+                break;
+            default:
+                break;
         }
 
+
+        finish();
+
         return super.onOptionsItemSelected(item);
+    }
+
+    void ShowToast(CharSequence text)
+    {
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     // The next two are called when we switch back into this activity
     @Override
     protected void onStart() {
         super.onStart();
+        //ShowToast("Edit onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        //ShowToast("Edit onResume");
     }
 
     // The next two are called when we switch away from this activity
@@ -92,7 +112,6 @@ public class EditActivity extends Activity {
     // data from the text fields and pass it to the ContactManager
     private void SaveChanges()
     {
-        String contactId = getIntent().getExtras().getString("_id");
         ContactManager contactMgr = ContactManager.getInstance(this);
         Contact mContact = new Contact();
         mContact.setName(((TextView) findViewById(R.id.editName)).getText().toString());
@@ -101,8 +120,7 @@ public class EditActivity extends Activity {
         mContact.setPhone(((TextView) findViewById(R.id.editPhone)).getText().toString());
         mContact.setTwitterId(((TextView) findViewById(R.id.editTwitter)).getText().toString());
 
-
-        if(!contactId.equals("-1")) {
+        if(contactId != null) {
             mContact.set_id(contactId);
             contactMgr.UpdateContact(contactId, mContact);
         } else {
@@ -115,7 +133,6 @@ public class EditActivity extends Activity {
     // data from the text fields and pass it to the ContactManager
     private void DeleteContact()
     {
-        String contactId = getIntent().getExtras().getString("_id");
         if(contactId != null) {
             ContactManager contactMgr = ContactManager.getInstance(this);
 

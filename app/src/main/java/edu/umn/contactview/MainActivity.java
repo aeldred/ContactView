@@ -134,6 +134,15 @@ public class MainActivity extends ListActivity {
         }
     }
 
+    void ShowToast(CharSequence text)
+    {
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
+
     // The next two are called when we switch back into this activity
     @Override
     protected void onStart() {

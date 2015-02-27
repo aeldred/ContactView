@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -55,14 +56,19 @@ public class DetailsActivity extends Activity {
             return true;
         }
 
-//        if(id==R.id.action_delete)
-//        {
-//            //ServiceResult sd = new ServiceResult();
-//            ContactManager delContact = ContactManager.getInstance(this);
-//            delContact.DeleteContact(contactId);
-//            Intent prevIntent = new Intent(this,MainActivity.class);
-//            startActivity(prevIntent);
-//        }
+       if(id==R.id.action_delete)
+        {
+            //ServiceResult sd = new ServiceResult();
+            ContactManager delContact = ContactManager.getInstance(this);
+            EditText nameView = (EditText)findViewById(R.id.detailsName);
+            String actual_id= String.valueOf(nameView.getId());
+            String name = nameView.getText().toString();
+            Contact mContact = delContact.GetContact(contactId);
+            //String id = contactId.concat()
+            delContact.DeleteContact(mContact.get_id());
+            Intent prevIntent = new Intent(this,MainActivity.class);
+            startActivity(prevIntent);
+        }
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_edit) {

@@ -137,6 +137,12 @@ public class ContactManager {
 
     public void DeleteContact(String sid){
         Contact mContact = new Contact();
+        int size = contacts.size();
+        boolean val1 = contacts.contains(sid);
+
         contacts.remove(sid);
+        boolean val = contacts.contains(sid);
+        int new_size = contacts.size();
+
     }
 }

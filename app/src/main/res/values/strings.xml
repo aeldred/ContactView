@@ -9,7 +9,6 @@
     <string name="URL_BASE">http://contacts.tinyapollo.com/</string>
     <string name="API_KEY">grumpy</string>
     <string name="action_add">Add</string>
-    <string name="action_search">Search</string>
     <string name="action_save">save</string>
     <string name="acton_delete">delete</string>
     <string name="acton_edit">delete</string>

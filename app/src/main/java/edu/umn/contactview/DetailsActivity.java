@@ -59,6 +59,15 @@ public class DetailsActivity extends Activity {
             return true;
         }
 
+        if(id==R.id.action_delete)
+        {
+            //ServiceResult sd = new ServiceResult();
+            ContactManager delContact = ContactManager.getInstance(this);
+            delContact.DeleteContact(contactId);
+            Intent prevIntent = new Intent(this,MainActivity.class);
+            startActivity(prevIntent);
+        }
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_edit) {
             // Create a new intent that points to the Details activity

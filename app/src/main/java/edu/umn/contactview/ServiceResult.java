@@ -14,21 +14,45 @@ public class ServiceResult {
     private String message;
     private Group group;
     private List<Contact> contacts;
+    private Contact contact;
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
+
 
     @Override
     public String toString() {
         String value = "";
             //comment
-        Iterator i = this.getContacts().iterator();
 
-        while (i.hasNext()) {
-            Contact curr = (Contact)i.next();
-            String line = "[ID: " + curr.get_id() + "]\n[NAME: " + curr.getName() + "]\n" +
-                    "[EMAIL: " + curr.getEmail() + "]\n[TITLE: " + curr.getTitle() + "]\n" +
-                    "[PHONE: " + curr.getPhone() + "]\n[GROUP: " + curr.getGroupId() + "]\n" +
-                    "[TWITTER: " + curr.getTwitterId() + "]\n\n";
-            value = value + line;
+        try {
+            Iterator i = this.getContacts().iterator();
+
+            while (i.hasNext()) {
+                Contact curr = (Contact) i.next();
+                String line = "[ID: " + curr.get_id() + "]\n[NAME: " + curr.getName() + "]\n" +
+                        "[EMAIL: " + curr.getEmail() + "]\n[TITLE: " + curr.getTitle() + "]\n" +
+                        "[PHONE: " + curr.getPhone() + "]\n[GROUP: " + curr.getGroupId() + "]\n" +
+                        "[TWITTER: " + curr.getTwitterId() + "]\n\n";
+                value = value + line;
+            }
+        } catch (Exception e) {
+                Contact curr = this.getContact();
+                String line = "[ID: " + curr.get_id() + "]\n[NAME: " + curr.getName() + "]\n" +
+                        "[EMAIL: " + curr.getEmail() + "]\n[TITLE: " + curr.getTitle() + "]\n" +
+                        "[PHONE: " + curr.getPhone() + "]\n[GROUP: " + curr.getGroupId() + "]\n" +
+                        "[TWITTER: " + curr.getTwitterId() + "]\n\n";
+                value = value + line;
         }
+        value = value + "[message: " + message + "]";
+        value = value + "[status: " + status + "]";
+        value = value + "[group: " + group + "]";
         return value;
     }
 

@@ -123,9 +123,9 @@ public class EditActivity extends Activity {
         if(contactId != null) {
             mContact.set_id(contactId);
             contactMgr.UpdateContact(contactId, mContact);
-        }
-        else{
-            //contactMgr.AddContact(mContact);
+        } else {
+            contactMgr.AddContact(mContact);
+
         }
     }
 

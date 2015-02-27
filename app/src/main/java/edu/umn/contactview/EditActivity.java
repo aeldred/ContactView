@@ -30,6 +30,7 @@ public class EditActivity extends Activity {
             ((TextView) findViewById(R.id.editTitle)).setText(mContact.getTitle());
             ((TextView) findViewById(R.id.editTwitter)).setText(mContact.getTwitterId());
         } catch (Exception e) {
+            contactId = null;
             //this is an add if the contact is null
         }
 
@@ -111,17 +112,20 @@ public class EditActivity extends Activity {
     // data from the text fields and pass it to the ContactManager
     private void SaveChanges()
     {
-        if(contactId != null) {
-            ContactManager contactMgr = ContactManager.getInstance(this);
-            Contact mContact = new Contact();
-            mContact.setName(((TextView) findViewById(R.id.editName)).getText().toString());
-            mContact.setTitle(((TextView) findViewById(R.id.editTitle)).getText().toString());
-            mContact.setEmail(((TextView) findViewById(R.id.editEmail)).getText().toString());
-            mContact.setPhone(((TextView) findViewById(R.id.editPhone)).getText().toString());
-            mContact.setTwitterId(((TextView) findViewById(R.id.editTwitter)).getText().toString());
-            mContact.set_id(contactId);
+        ContactManager contactMgr = ContactManager.getInstance(this);
+        Contact mContact = new Contact();
+        mContact.setName(((TextView) findViewById(R.id.editName)).getText().toString());
+        mContact.setTitle(((TextView) findViewById(R.id.editTitle)).getText().toString());
+        mContact.setEmail(((TextView) findViewById(R.id.editEmail)).getText().toString());
+        mContact.setPhone(((TextView) findViewById(R.id.editPhone)).getText().toString());
+        mContact.setTwitterId(((TextView) findViewById(R.id.editTwitter)).getText().toString());
 
+        if(contactId != null) {
+            mContact.set_id(contactId);
             contactMgr.UpdateContact(contactId, mContact);
+        }
+        else{
+            //contactMgr.AddContact(mContact);
         }
     }
 

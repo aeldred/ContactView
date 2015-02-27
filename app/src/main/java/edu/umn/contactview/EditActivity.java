@@ -1,10 +1,13 @@
 package edu.umn.contactview;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class EditActivity extends Activity {
@@ -47,33 +50,49 @@ public class EditActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        if (id == R.id.action_save) {
-            SaveChanges();
-            finish();
-            return true;
-        }
-        if (id == R.id.action_delete) {
-            DeleteContact();
-            finish();
-            return true;
+        switch(id) {
+            case R.id.action_settings:
+                break;
+            case R.id.action_save:
+                SaveChanges();
+                ShowToast("Changes Saved");
+                finish();
+                break;
+            case R.id.action_delete:
+                DeleteContact();
+                ShowToast("Contact Deleted");
+                finish();
+                break;
+            default:
+                break;
         }
 
+
+        finish();
+
         return super.onOptionsItemSelected(item);
+    }
+
+    void ShowToast(CharSequence text)
+    {
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     // The next two are called when we switch back into this activity
     @Override
     protected void onStart() {
         super.onStart();
+        //ShowToast("Edit onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        //ShowToast("Edit onResume");
     }
 
     // The next two are called when we switch away from this activity

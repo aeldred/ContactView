@@ -1,12 +1,14 @@
 package edu.umn.contactview;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class DetailsActivity extends Activity {
@@ -18,20 +20,6 @@ public class DetailsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        ContactManager contactMgr = ContactManager.getInstance(this);
-
-        try {
-            contactId = getIntent().getExtras().getString("_id");
-            Contact mContact = contactMgr.GetContact(contactId);
-
-            ((TextView) findViewById(R.id.detailsName)).setText(mContact.getName());
-            ((TextView) findViewById(R.id.detailsEmail)).setText(mContact.getEmail());
-            ((TextView) findViewById(R.id.detailsPhone)).setText(mContact.getPhone());
-            ((TextView) findViewById(R.id.detailsTitle)).setText(mContact.getTitle());
-            ((TextView) findViewById(R.id.detailsTwitter)).setText(mContact.getTwitterId());
-        } catch (Exception e) {
-            //if no id is returned, then this is an add
-        }
     }
 
 
@@ -58,6 +46,7 @@ public class DetailsActivity extends Activity {
         if(id==R.id.action_delete)
         {
             DeleteContact();
+            ShowToast("Contact Deleted");
             finish();
         }
 
@@ -86,25 +75,52 @@ public class DetailsActivity extends Activity {
         }
     }
 
+    void ShowToast(CharSequence text)
+    {
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
+
     // The next two are called when we switch back into this activity
     @Override
     protected void onStart() {
+        //ShowToast("Details onStart");
         super.onStart();
+        ContactManager contactMgr = ContactManager.getInstance(this);
+
+        try {
+            contactId = getIntent().getExtras().getString("_id");
+            Contact mContact = contactMgr.GetContact(contactId);
+
+            ((TextView) findViewById(R.id.detailsName)).setText(mContact.getName());
+            ((TextView) findViewById(R.id.detailsEmail)).setText(mContact.getEmail());
+            ((TextView) findViewById(R.id.detailsPhone)).setText(mContact.getPhone());
+            ((TextView) findViewById(R.id.detailsTitle)).setText(mContact.getTitle());
+            ((TextView) findViewById(R.id.detailsTwitter)).setText(mContact.getTwitterId());
+        } catch (Exception e) {
+            //if no id is returned, then this is an add
+        }
     }
 
     @Override
     protected void onResume() {
+        //ShowToast("Details onResume");
         super.onResume();
     }
 
     // The next two are called when we switch away from this activity
     @Override
     protected void onPause() {
+        //ShowToast("Details onPause");
         super.onPause();
     }
 
     @Override
     protected void onStop() {
+        //ShowToast("Details onStop");
         super.onStop();
     }
 }

@@ -62,7 +62,7 @@ public class EditActivity extends Activity {
             case R.id.action_delete:
                 DeleteContact();
                 ShowToast("Contact Deleted");
-                finish();
+                NavUtils.navigateUpFromSameTask(this);
                 break;
             default:
                 break;
